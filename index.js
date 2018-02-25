@@ -8,13 +8,33 @@ const bot = new TelegramBot(token, {polling: true});
  const request = require('request');
 
 
- bot.on('message', (msg) => {
+ bot.on('message', (msg) =>
+ {
  var Hola = "/hola";
- if (msg.text.toString().toLowerCase().indexOf(Hola) === 0) {
+ var Mayor = "/mayor";
+
+ if (msg.text.toString().toLowerCase().indexOf(Hola) === 0)
+ {
      bot.sendMessage(msg.chat.id, "Hola  " + msg.from.first_name);
  }
- else if (msg.text.toString().toLowerCase().indexOf("?") > -1) {
+ else if (msg.text.toString().toLowerCase().indexOf("?") > -1)
+ {
       bot.sendMessage(msg.chat.id, "Muy pronto lanzamiento bot.");
   }
- }
- });
+  else if (msg.text.toString().toLowerCase().indexOf(Mayor) === 0)
+    {
+      var regex = /\d+/g;
+      var string =  msg.text.match(regex);
+      var num1= string[0];
+      var num2= string[1];
+      if (num1>num2)
+      {
+        bot.sendMessage(msg.chat.id,"El numero mayor es: "+ num1);
+
+      }
+      else
+      {
+        bot.sendMessage(msg.chat.id,"El numero mayor es: "+ num2);
+      }
+     }
+});
